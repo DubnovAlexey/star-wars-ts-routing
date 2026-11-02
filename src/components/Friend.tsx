@@ -1,10 +1,14 @@
+import {Link} from "react-router";
+import type {Hero} from "../utils/types";
+
 interface Props {
-    friend: string;
+    friend: Hero;
+    to: string;
     pos: number;
 }
 
-const Friend = ({friend, pos}: Props) => {
-    let styles = "w-full ";
+const Friend = ({friend, to, pos}: Props) => {
+    let styles = "w-full hover:opacity-80 ";
     if (pos === 7) {
         styles += 'rounded-bl-3xl';
     }
@@ -12,7 +16,9 @@ const Friend = ({friend, pos}: Props) => {
         styles += 'rounded-br-3xl';
     }
     return (
-        <img className={styles} src={friend} alt="Friend"/>
+        <Link to={to} title={friend.name}>
+            <img className={styles} src={friend.img} alt={friend.name}/>
+        </Link>
     )
 }
 

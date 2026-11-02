@@ -10,7 +10,8 @@ A fan site about Star Wars heroes in React and TypeScript: a home page with the 
 
 - Pages with React Router: Home, About me (`/about me/:heroId`, ten heroes), Star Wars, Contact, and a 404 page.
 - Hero and planet data are loaded from the course API (`sw-info-api.herokuapp.com`) and cached in `localStorage` for 30 days.
-- The chosen hero is shared between components with React Context.
+- The chosen hero is shared between components with React Context: the title, the photo and the "dream team" follow it.
+- Every photo in the "dream team" opens that hero's page; the Millennium Falcon page shows ship data (model, crew, speed) instead of a person's.
 - If the data server does not answer, the page shows a message instead of waiting forever.
 - Styling with Tailwind CSS 4.
 
@@ -39,5 +40,4 @@ Every push to `main` builds the site and publishes it to GitHub Pages (`.github/
 ## Roadmap
 
 - Spare JSON data inside the project, in case the course API goes offline.
-- Clickable friends in the gallery that open their pages.
 - Loading skeletons and a mobile menu.

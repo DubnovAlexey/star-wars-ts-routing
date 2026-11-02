@@ -1,15 +1,20 @@
 import {useEffect, useState} from "react";
 import {base_url, period_month, storage_prefix} from "../utils/constants.ts";
 
-const Contact = () => {
-    const [planets, setPlanets] = useState<string[]>(() => {
+// Planets from localStorage if they are younger than a month
+const loadCachedPlanets = (): string[] | undefined => {
+    try {
         const planets = JSON.parse(localStorage.getItem(storage_prefix + 'planets')!);
         if (planets && ((Date.now() - planets.time) < period_month)) {
             return planets.payload;
-        } else {
-            return ['wait...']
         }
-    });
+    } catch {
+        // damaged cache — load the planets again
+    }
+}
+
+const Contact = () => {
+    const [planets, setPlanets] = useState<string[]>(() => loadCachedPlanets() ?? ['wait...']);
 
     useEffect(() => {
         const getPlanets = async () => {
@@ -23,7 +28,7 @@ const Contact = () => {
             }));
         }
 
-        if (planets.length === 1){
+        if (!loadCachedPlanets()) {
             getPlanets().catch(() => setPlanets(['Planets are unavailable now']));
         }
     }, [])
