@@ -11,6 +11,8 @@ import friend9 from "../assets/friend9.jpg";
 import type {Characters} from "./types";
 
 export const base_url = 'https://sw-info-api.herokuapp.com';
+// Prefix for localStorage keys: on dubnovalexey.github.io all projects share one storage
+export const storage_prefix = 'star-wars:';
 export const version = '/v1';
 export const characters: Characters = {
     luke: {

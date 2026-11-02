@@ -1,4 +1,4 @@
-import {characters, defaultHero, period_month} from "../utils/constants.ts";
+import {characters, defaultHero, period_month, storage_prefix} from "../utils/constants.ts";
 import {useContext, useEffect, useState} from "react";
 import {useParams} from "react-router";
 import ErrorPage from "./ErrorPage.tsx";
@@ -8,7 +8,7 @@ const AboutMe = () => {
     const {changeHero} = useContext(SWContext);
     const {heroId = defaultHero} = useParams();
     const [hero, setHero] = useState(() => {
-        const hero = JSON.parse(localStorage.getItem(heroId)!);
+        const hero = JSON.parse(localStorage.getItem(storage_prefix + heroId)!);
         if (hero && ((Date.now() - hero.timestamp) < period_month)) {
             return hero.payload;
         }
@@ -34,11 +34,12 @@ const AboutMe = () => {
                         eye_color: data.eye_color
                     }
                     setHero(info);
-                    localStorage.setItem(heroId, JSON.stringify({
+                    localStorage.setItem(storage_prefix + heroId, JSON.stringify({
                         payload: info,
                         timestamp: Date.now()
                     }));
                 })
+                .catch(() => setHero({status: 'The Star Wars data server is not answering. Try again later.'}))
         }
     }, [])
 

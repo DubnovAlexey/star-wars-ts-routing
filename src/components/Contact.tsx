@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
-import {base_url, period_month} from "../utils/constants.ts";
+import {base_url, period_month, storage_prefix} from "../utils/constants.ts";
 
 const Contact = () => {
     const [planets, setPlanets] = useState<string[]>(() => {
-        const planets = JSON.parse(localStorage.getItem('planets')!);
+        const planets = JSON.parse(localStorage.getItem(storage_prefix + 'planets')!);
         if (planets && ((Date.now() - planets.time) < period_month)) {
             return planets.payload;
         } else {
@@ -17,14 +17,14 @@ const Contact = () => {
             const data: {name: string}[] = await res.json();
             const planets = data.map(item => item.name);
             setPlanets(planets);
-            localStorage.setItem('planets', JSON.stringify({
+            localStorage.setItem(storage_prefix + 'planets', JSON.stringify({
                 payload: planets,
                 time: Date.now()
             }));
         }
 
         if (planets.length === 1){
-            getPlanets().then(() => console.log('Planets were loaded'));
+            getPlanets().catch(() => setPlanets(['Planets are unavailable now']));
         }
     }, [])
 
