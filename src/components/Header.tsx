@@ -9,7 +9,8 @@ const Header = () => {
     return (
         <header className="rounded-t-3xl bg-grey">
             <Navigation/>
-            <h1 className="text-center text-4xl py-6">{characters[hero].name}</h1>
+            {/* From 640 px the menu is pinned over the header top: the name starts below it instead of touching "Contact" */}
+            <h1 className="text-center text-4xl py-6 sm:pt-12">{characters[hero].name}</h1>
         </header>
     )
 }
