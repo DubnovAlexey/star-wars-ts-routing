@@ -17,7 +17,8 @@ const Friend = ({friend, to, pos}: Props) => {
     }
     return (
         <Link to={to} title={friend.name}>
-            <img className={styles} src={friend.img} alt={friend.name}/>
+            {/* data-zoom: under the mouse the photo grows 2.5× over the page (utils/useHoverZoom.ts) */}
+            <img className={styles} src={friend.img} alt={friend.name} data-zoom=""/>
         </Link>
     )
 }
